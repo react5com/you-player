@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ESNext",
+    "lib": ["es2019", "dom"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "outDir": "./dist/types",
+    "types": ["node"],
+    "moduleResolution": "node",  
+    "resolveJsonModule": true, 
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
+    "sourceMap": true,
+    "jsx": "preserve"
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": ["./src"]
+}

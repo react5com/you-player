@@ -1,6 +1,6 @@
 {
   "name": "@react5/you-player",
-  "version": "0.4.5",
+  "version": "0.4.9",
   "description": "Youtube player React component.",
   "private": false,
   "keywords": [
@@ -21,11 +21,12 @@
   "author": "React5",
   "type": "module",
   "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "build": "npm run tsc & rollup -c",
     "format": "prettier-eslint --write \"src/**/*.ts(x)?\"",
     "lint": "eslint \"src/**\" --ext .ts --ext .tsx",
-    "clean": "rimraf build",
+    "clean": "rimraf dist",
     "watch": "rollup -c -w --filterLogs '!message:*__PURE__*'",
     "dev": "npm-run-all --parallel tsc-watch watch serve",
     "serve": "rollup -c -w --environment DEV_SERVER:true",

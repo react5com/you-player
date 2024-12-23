@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { YouPlayer } from './YouPlayer';
-import { IYouTubePlayer, PlayerState } from 'types';
+import type { IYouTubePlayer, PlayerState } from './interfaces';
 
 const TestPage: FC = () => {
   const [player, setPlayer] = useState<IYouTubePlayer | null>(null);

@@ -19,7 +19,7 @@ const external = [
 
 export default [
   {
-    input: "src/YouPlayer.tsx",
+    input: "src/index.tsx",
     output: {
       file: "dist/index.js",
       format: "esm"

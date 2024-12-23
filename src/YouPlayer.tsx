@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import type { IPlayerEventInfo, IYouTubePlayer } from "types";
+import type { IPlayerEventInfo, IYouTubePlayer } from "./interfaces";
 
 declare global {
   interface Window {

@@ -44,7 +44,7 @@ interface YouTubeVideoPlayerProps {
 }
 export const YouPlayer = ({videoId, start = 0, end, className, onReady, onStateChange, onError}: YouTubeVideoPlayerProps) => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
-  const playerRef = useRef<IYouTubePlayer>(null);
+  const playerRef = useRef<IYouTubePlayer | null>(null);
 
   useEffect(() => {
     youTubeAPIEventDispatcher.addEventListener('ready', handleApiReady);
@@ -66,6 +66,7 @@ export const YouPlayer = ({videoId, start = 0, end, className, onReady, onStateC
     if(window.YT && !playerRef.current) {
       playerRef.current = new window.YT.Player(iframeRef.current, {
         videoId,
+        host: 'https://www.youtube-nocookie.com',
         playerVars: {
           start,
           end,

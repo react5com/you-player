@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import type { IPlayerEventInfo, IYouTubePlayer } from "./interfaces";
 
 declare global {
@@ -46,7 +46,15 @@ export const YouPlayer = ({videoId, start = 0, end, className, onReady, onStateC
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const playerRef = useRef<IYouTubePlayer | null>(null);
 
+  const [isOnClient, setOnClient] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   useEffect(() => {
+    setOnClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isOnClient) return;
+
     youTubeAPIEventDispatcher.addEventListener('ready', handleApiReady);
     loadYouTubeIframeAPI();
 
@@ -57,7 +65,18 @@ export const YouPlayer = ({videoId, start = 0, end, className, onReady, onStateC
       }
       youTubeAPIEventDispatcher.removeEventListener('ready', handleApiReady);
     };
-  }, [videoId, start, end]);
+  }, [isOnClient]);
+
+  useEffect(() => {
+    if (!isOnClient || !isReady) return;
+    if (playerRef.current?.loadVideoById) {
+      playerRef.current.loadVideoById({
+        videoId,
+        startSeconds: start || undefined,
+        endSeconds: end || undefined,
+      });
+    }
+  }, [videoId, start, end, isOnClient]);
 
   const handleApiReady = () => {
     createPlayer();
@@ -81,6 +100,7 @@ export const YouPlayer = ({videoId, start = 0, end, className, onReady, onStateC
   }
 
   const onPlayerReady = () => {
+    setIsReady(true);
     (onReady && playerRef.current) && onReady(playerRef.current);
   };
 
@@ -91,6 +111,9 @@ export const YouPlayer = ({videoId, start = 0, end, className, onReady, onStateC
     (onError && playerRef.current) && onError(errorCode, playerRef.current);
   }
 
+  if (!isOnClient) {
+    return <Fragment />;
+  }
   return (
     <div
       id={`youtube-player-${videoId}`}
